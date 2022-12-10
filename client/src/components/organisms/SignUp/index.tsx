@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState } from "react"
 
 import { Post } from "../../../api"
@@ -25,6 +26,8 @@ const SignUp = () => {
       console.log(res)
 
     } catch (error: any) {
+      console.log(error)
+
       setErrorMessage(error?.response.data.error_message)
       setLoading(false)
 
