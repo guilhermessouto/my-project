@@ -1,7 +1,5 @@
 import { parseCookies } from "nookies"
-
 import { useContext, useEffect } from "react"
-
 import { useNavigate } from "react-router-dom"
 
 import { AuthContext } from "../../../contexts/AuthContext"
@@ -18,6 +16,8 @@ const HomeTemplate = () => {
       return navigate('/login')
 
   }, [])
+
+ 
 
   return (
     <div>

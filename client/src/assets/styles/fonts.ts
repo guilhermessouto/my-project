@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
-const MontserratSemiBold = '../../public/static/fonts/text/Montserrat-SemiBold.ttf'
-const MontserratMedium = '../../public/static/fonts/text/Montserrat-Medium.ttf'
-const MontserratLight = '../../public/static/fonts/text/Montserrat-Light.ttf'
+const MontserratSemiBold = '/static/fonts/text/Montserrat-SemiBold.ttf'
+const MontserratMedium = '/static/fonts/text/Montserrat-Medium.ttf'
+const MontserratLight = '/static/fonts/text/Montserrat-Light.ttf'
 
 const fonts = createGlobalStyle `
   @font-face {

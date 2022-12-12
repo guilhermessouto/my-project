@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Gray900, Orange, Purple, White } from "../../../assets/styles/colors";
-
 import { XXSmallDisplay } from "../../../assets/styles/typography";
 
 type Props = {

@@ -1,5 +1,4 @@
 import { Formik, Field, Form } from 'formik';
-
 import * as yup from "yup";
 
 import SubmitButton from '../../atoms/SubmitButton';
@@ -36,7 +35,7 @@ const SignUpCard = (props: Props) => {
       validateOnMount
       initialValues={{email: '', password: '', confirmPassword: ''}}
     >
-      {({errors, touched}) => (
+      {({errors, touched}: any) => (
         <Container>
           <ErrorMessage message={props.error_message} />
 

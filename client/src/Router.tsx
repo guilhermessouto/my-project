@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Login from './components/pages/Login'
+import SignIn from './components/pages/SignIn'
 import SignUp from './components/pages/SignUp'
 import Home from './components/pages/Home'
 
 const Router = () => (
     <Routes>
-      <Route path='/login' element={<Login />} />
+      <Route path='/login' element={<SignIn />} />
 
       <Route path='/signup' element={<SignUp />} />
 

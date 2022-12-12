@@ -1,5 +1,4 @@
 import { Formik, Field, Form } from 'formik';
-
 import * as yup from "yup";
 
 import SubmitButton from '../../atoms/SubmitButton';
@@ -14,7 +13,7 @@ type Props = {
   error_message: string
 }
 
-const LoginCard = (props: Props) => {
+const SignInCard = (props: Props) => {
   const schema = yup.object().shape({
     email: yup.string()
     .email('Email inválido.')
@@ -31,7 +30,7 @@ const LoginCard = (props: Props) => {
       validateOnMount
       initialValues={{email: '', password: ''}}
     >
-      {({errors, touched}) => (
+      {({errors, touched}: any) => (
         <Container>
           <ErrorMessage message={props.error_message} />
 
@@ -77,4 +76,4 @@ const LoginCard = (props: Props) => {
   )
 }
 
-export default LoginCard
+export default SignInCard

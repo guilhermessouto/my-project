@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Gray900 } from "../../../assets/styles/colors";
-
 import { XSmallDisplay } from "../../../assets/styles/typography";
 
 export const LabelText = styled.label `

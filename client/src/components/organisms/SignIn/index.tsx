@@ -1,19 +1,18 @@
-import { parseCookies } from "nookies"
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { parseCookies } from "nookies"
 
 import { AuthContext } from "../../../contexts/AuthContext"
-import SignUpCard from "../../molecules/SignUpCard"
+import SignInCard from "../../molecules/SignInCard"
 
 import { Container } from "./style"
 
-type SignUp = {
+type SignIn = {
   email: string
   password: string
-  confirmPassword: string
 }
 
-const SignUp = () => {
+const SignIn = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
@@ -24,16 +23,17 @@ const SignUp = () => {
   useEffect(() => {
     const { 'myproject-token': token } = parseCookies()
 
-    if(token)
+    if(token) 
       return navigate('/home')
+
   }, [])
 
-  async function handleSignUp(dataForm: SignUp) {
+  async function handleSignIn(dataForm: SignIn) {
     setLoading(true)
     setErrorMessage('')
-  
+
     try {
-      const res = await signIn('/auth/register', dataForm)
+      const res =  await signIn('/auth/login', dataForm)
 
     } catch (error: any) {
       console.log(error)
@@ -46,8 +46,8 @@ const SignUp = () => {
 
   return (
     <Container>
-      <SignUpCard 
-        handleEnterSubmit={handleSignUp}
+      <SignInCard 
+        handleEnterSubmit={handleSignIn}
         loading={loading}
         error_message={errorMessage}
       />
@@ -55,4 +55,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignIn

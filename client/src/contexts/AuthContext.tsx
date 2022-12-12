@@ -50,7 +50,7 @@ export function AuthProvider({ children }: any) {
     const { 'myproject-token': token } = parseCookies()
 
     if(token) {
-      const res = service.get('/user')
+      service.get('/user')
         .then(res => {
           const { user } = res.data
           return setUserData(user)

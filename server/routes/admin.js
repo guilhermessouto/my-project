@@ -8,7 +8,7 @@ require('dotenv').config()
   const User = require('../models/User')
 
 // Private Route
-  router.get('/user', checkToken,async (req, res) => {
+  router.get('/user', checkToken, async (req, res) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
@@ -24,7 +24,11 @@ require('dotenv').config()
     if(!user) 
       return res.status(404).json({error_message: 'Usuário não encontrado'})
 
-    res.status(200).json({ user })
+    res.status(200).json({user})
+  })
+
+  router.get('/any', (req, res) => {
+    res.send({msg: req.headers})
   })
 
 // checar o token
@@ -68,15 +72,34 @@ require('dotenv').config()
       const passwordHash = await bcrypt.hash(password, salt)
 
     // criar usuario
-      const user = new User({
+      let user = new User({
         email,
         password: passwordHash
       })
 
     try {
       await user.save()
-      res.status(201).json({msg: 'cria1111111111do'})
-      
+
+      const secret = process.env.SECRET
+
+      const token = jwt.sign({
+          id: user._id,
+
+        }, 
+        secret,
+      )
+
+      user = user.toObject()
+
+      delete user.password
+      delete user.__v
+
+      res.status(200).json({
+        message: 'Autenticação realizada com sucesso', 
+        token,
+        user
+      })
+  
     } catch (error) {
 
       return res.status(500).json({msg: 'error'})
@@ -110,8 +133,9 @@ require('dotenv').config()
       )
 
       user = user.toObject()
+
       delete user.password
-      
+      delete user.__v
 
       res.status(200).json({
         message: 'Autenticação realizada com sucesso', 
