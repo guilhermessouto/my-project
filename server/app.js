@@ -9,7 +9,6 @@ require('dotenv').config()
   const admin = require('./routes/admin')
   const app = express()
   
-
 // Config
   // JSON response
     app.use(express())

@@ -8,14 +8,21 @@ require('dotenv').config()
   const User = require('../models/User')
 
 // Private Route
-router.get('/user/:id', checkToken, async (req, res) => {
-    const id = req.params.id
+  router.get('/user', checkToken,async (req, res) => {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    const secret = process.env.SECRET
+
+    const decoded = jwt.verify(token, secret)
+
+    const { id } = decoded
 
     // checar se o usuário existe
-      const user = await User.findById(id, '-password')
+    const user = await User.findById(id, '-password')
 
-      if(!user) 
-        return res.status(404).json({error_message: 'Usuário não encontrado'})
+    if(!user) 
+      return res.status(404).json({error_message: 'Usuário não encontrado'})
 
     res.status(200).json({ user })
   })
@@ -29,9 +36,9 @@ router.get('/user/:id', checkToken, async (req, res) => {
       return res.status(401).json({error_message: 'Acesso negado!'})
 
     try {
-      const sceret = process.env.SECRET
+      const secret = process.env.SECRET
 
-      jwt.verify(token, sceret)
+      jwt.verify(token, secret)
 
       next()
 
@@ -81,7 +88,7 @@ router.get('/user/:id', checkToken, async (req, res) => {
     const { email, password } = req.body
 
     // checar se o usuario existe
-      const user = await User.findOne({ email: email })
+      let user = await User.findOne({ email: email })
 
       if(!user)
         return res.status(422).json({error_message: 'E-mail não encontrado!'})
@@ -102,7 +109,15 @@ router.get('/user/:id', checkToken, async (req, res) => {
         secret,
       )
 
-      res.status(200).json({message: 'Autenticação realizada com sucesso', token})
+      user = user.toObject()
+      delete user.password
+      
+
+      res.status(200).json({
+        message: 'Autenticação realizada com sucesso', 
+        token,
+        user
+    })
 
     } catch (error) {
       

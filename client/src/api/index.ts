@@ -1,8 +1,15 @@
 import axios, { AxiosRequestConfig } from "axios"
+import { parseCookies } from "nookies"
 
-const service = axios.create({
+const { 'myproject-token': token } = parseCookies()
+
+export const service = axios.create({
   baseURL: 'http://localhost:3000'
 })
+
+if(token) {
+  service.defaults.headers['Authorization'] = `Bearer ${token}`
+}
 
 export function Get(param: string, options?: AxiosRequestConfig) {
   return service.get(`${param}`, options)
