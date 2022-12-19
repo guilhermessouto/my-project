@@ -6,6 +6,7 @@ type Props = {
   label: string
   loading?: boolean
   background?: string
+  themeLoader?: string
 }
 
 const SubmitButton = (props: Props) => {
@@ -15,7 +16,7 @@ const SubmitButton = (props: Props) => {
       background={props.background}
     >
       {props.loading 
-        ? <Loader />
+        ? <Loader theme={props.themeLoader}/>
         : <SpanLabel>{props.label}</SpanLabel>
       }
     </StyledButton>

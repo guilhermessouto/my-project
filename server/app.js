@@ -4,8 +4,6 @@ require('dotenv').config()
   const express = require('express')
   const cors = require('cors')
   const mongoose = require('mongoose')
-  const bcrypt = require('bcrypt')
-  const jwt = require('jsonwebtoken')
   const admin = require('./routes/admin')
   const app = express()
   
@@ -33,7 +31,5 @@ require('dotenv').config()
     mongoose.connect(
       `mongodb+srv://${dbUser}:${dbPassword}@cluster0.gwyeptz.mongodb.net/?retryWrites=true&w=majority`
     )
-      .then(() => {
-        app.listen(3000)
-      })
+      .then(() => app.listen(3000))
       .catch(err => console.log(err))

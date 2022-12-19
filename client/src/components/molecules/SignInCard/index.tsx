@@ -7,8 +7,13 @@ import ErrorMessage from '../../atoms/ErrorMessageForm';
 
 import { Container, FieldContainer } from './style';
 
+type DataForm = {
+  email: string
+  password: string
+}
+
 type Props = {
-  handleEnterSubmit: any
+  handleEnterSubmit: (dataForm: DataForm) => Promise<void>
   loading?: boolean
   error_message: string
 }

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios"
+import axios from "axios"
 import { parseCookies } from "nookies"
 
 const { 'myproject-token': token } = parseCookies()
@@ -10,19 +10,4 @@ export const service = axios.create({
 if(token) {
   service.defaults.headers['Authorization'] = `Bearer ${token}`
 }
-
-export function Get(param: string, options?: AxiosRequestConfig) {
-  return service.get(`${param}`, options)
-}
-
-export function Post(param: string, data: any, options?: AxiosRequestConfig) {
-  return service.post(`${param}`, data, options)
-}
-
-export function Put(param: string, data: any, options?: AxiosRequestConfig) {
-  return service.put(`${param}`, data, options)
-}
-
-export function Delete(param: string, options?: AxiosRequestConfig) {
-  return service.delete(`${param}`, options)
-}
+// context pras notes pra renderizar na merda do edit

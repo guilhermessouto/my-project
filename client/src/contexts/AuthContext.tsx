@@ -1,12 +1,11 @@
 import { AxiosResponse } from "axios";
-
 import { createContext, useEffect, useState } from "react";
-
 import { setCookie, parseCookies } from 'nookies'
-
 import { useNavigate } from "react-router-dom";
 
 import { service } from "../api";
+
+import { useUser } from "../api/services/user";
 
 type User = {
   email: string
@@ -25,7 +24,7 @@ type SignInRequestData = {
 
 type AuthContextType = {
   isAuthenticated: boolean
-  userData: User | null
+  userData: User | undefined
   signIn: (param: string, data: SignInData) => Promise<AxiosResponse<SignInRequestData>>
 }
 
@@ -34,7 +33,8 @@ export const AuthContext = createContext({} as AuthContextType)
 export function AuthProvider({ children }: any) {
   const navigate = useNavigate()
 
-  const [userData, setUserData] = useState<User | null>(null)
+  const [userData, setUserData] = useState<User | undefined>(undefined)
+  const [loadData, setLoadData] = useState('')
 
   // verificar se o usuário está autenticado
   const isAuthenticated = !!userData
@@ -42,8 +42,8 @@ export function AuthProvider({ children }: any) {
   // mesmo que o token continue salvo no refresh da pagina, a 
   // informaçao do usuario que esta no state nao persiste, 
   // porq a informaçao é local.
-  // entao é melhor usar um useEffect pra isso.
-  // essa funçao verifica se tem um token no cookies, se tiver é porq
+  // entao é melhor utilizar o useEffect.
+  // a logica é verificar se tem um token nos cookies, se tiver é porq
   // o usuario ta autenticado, entao eu busco no back-end as infos
   // do usuario atualizados
   useEffect(() => {
@@ -51,12 +51,9 @@ export function AuthProvider({ children }: any) {
 
     if(token) {
       service.get('/user')
-        .then(res => {
-          const { user } = res.data
-          return setUserData(user)
-        })
-  
+        .then(res => setUserData(res.data))
     }
+    
   }, [])
 
   // funçao de autenticaçao
@@ -69,8 +66,7 @@ export function AuthProvider({ children }: any) {
       maxAge: 60 * 60 * 5, // 5 horas
     })
 
-    // tipando como any por dar erro
-    setUserData(user as any)
+    setUserData(user)
 
     navigate('/home')
 

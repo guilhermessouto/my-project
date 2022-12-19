@@ -8,6 +8,7 @@ type Props = {
 }
 
 export const StyledButton = styled.button `
+  width: 100%;
   margin: 3px 0;
   color: ${White};
   font-weight: bolder;
@@ -27,5 +28,4 @@ export const StyledButton = styled.button `
 export const SpanLabel = styled.span `
   ${XXSmallDisplay}
   padding: 8px;
-  
 `

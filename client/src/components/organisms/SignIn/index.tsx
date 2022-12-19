@@ -33,7 +33,7 @@ const SignIn = () => {
     setErrorMessage('')
 
     try {
-      const res =  await signIn('/auth/login', dataForm)
+      await signIn('/auth/login', dataForm)
 
     } catch (error: any) {
       console.log(error)

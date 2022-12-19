@@ -1,7 +1,7 @@
 import { LoaderIMG } from "./style"
 
-const LoaderSVG = '../../../public/static/images/Loader.svg'
-const DarkLoaderSVG = '../../../public/static/images/Dark-Loader.svg'
+const LoaderSVG = '../../../static/images/Loader.svg'
+const DarkLoaderSVG = '../../../static/images/Dark-Loader.svg'
 
 type Props = {
   theme?: string
